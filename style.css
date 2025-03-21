@@ -22,7 +22,6 @@ body {
     display: flex;
     gap: 10px;
     margin: 20px 0;
-    width: 33.33vw;
 }
 
 .task-input input {
@@ -30,6 +29,7 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    width: 33.33vw;
 }
 
 .add-btn {
