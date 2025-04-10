@@ -3,6 +3,7 @@ import TaskComponent from "../view/task-component.js";
 import DeskComponent from "../view/board-component.js";
 import TasksListComponent from "../view/task-list-component.js";
 import ClearButtonComponent from "../view/clear-component.js";
+import PlugComponent from "../view/plug-component.js";
 
 export default class TasksBoardPresenter {
     #taskDeskComponent = new DeskComponent();
@@ -17,26 +18,44 @@ export default class TasksBoardPresenter {
     }
 
     init() {
-        this.#boardtasks = [...this.#tasksModel.getTasks()];
+        this.#boardtasks = [...this.#tasksModel.tasks];
 
         render(this.#taskDeskComponent, this.#boardContainer);
 
-        for (const taskList of this.#boardtasks) {
-            const status = taskList.status;
+        this.#boardtasks.forEach((taskList) => {
+            this.#renderTaskList(taskList.status, taskList.tasks);
+        });
 
-            const list = new TasksListComponent(status);
+        this.#renderClearButton();
+    }
 
-            render(list, this.#taskDeskComponent.getElement());
+    #renderTask(task, container) {
+        render(new TaskComponent(task), container.element.querySelector('.task-container'));
+    }
 
-            for (const task of taskList.tasks) {
-                render(new TaskComponent(task), list.getElement().querySelector('.task-container'));
-            }
-        }
+    #renderTaskList(status, tasks) {
+        const list = new TasksListComponent(status);
 
+        render(list, this.#taskDeskComponent.element);
+
+        console.log(tasks.length)
+
+        tasks.length === 0 ? this.#renderPlugComponent(list) : tasks.forEach((task) => {
+            this.#renderTask(task, list);
+        });
+    }
+
+    #renderClearButton() {
         const basketContainer = document.querySelector('.basket');
 
-        if (basketContainer) {
+        const basketTasks = basketContainer?.querySelector('li');
+
+        if (basketContainer && basketTasks) {
             render(new ClearButtonComponent(), basketContainer);
         }
+    }
+
+    #renderPlugComponent(container) {
+        render(new PlugComponent(), container.element);
     }
 }
