@@ -1,20 +1,40 @@
-import HeaderComponent from './view/header-component.js';
-import {render, RenderPosition} from './framework/render.js';
-import FormAddTaskComponent from "./view/new-task-component.js";
-import TasksModel from './model/task-model.js';
-import TasksBoardPresenter from './presenter/tasks-board-presenter.js';
+import { render, RenderPosition } from './framework/render.js'
+import HeaderComponent from './view/header-component.js'
+import AddNewTaskComponent from './view/plug-component.js'
+import TasksBoardPresenter from './presenter/tasks-board-presenter.js'
+import TasksModel from './model/task-model.js'
+import ClearButtonComonent from './view/clear-component.js'
 
-const bodyContainer= document.querySelector('.page-body');
-const formContainer = document.querySelector('.add-new-task-component');
-const taskBoardContainer = document.querySelector('.main-content');
+const bodyContainer = document.querySelector('.page-body');
+const addTaskContainer = document.querySelector('.add-new-task-component');
+const deskContainer = document.querySelector('.main-content');
 
-const tasksModel = new TasksModel();
-const tasksBoardPresenter = new TasksBoardPresenter({
-    boardContainer: taskBoardContainer,
-    tasksModel,
-})
+
+const tasks = new TasksModel();
+
+const clearButtonComponent = new ClearButtonComonent({
+    onClick: handleClearBasketButtonClick
+});
+
+const taskBoardPresenter = new TasksBoardPresenter({
+    boardContainer: deskContainer,
+    tasksModel: tasks,
+    clearButtonComponent: clearButtonComponent
+});
+
+const formAddTaskComponent = new AddNewTaskComponent({
+    onClick: handleAddNewTaskButtonClick
+});
 
 render(new HeaderComponent(), bodyContainer, RenderPosition.BEFOREBEGIN);
-render(new FormAddTaskComponent(), formContainer);
+render(formAddTaskComponent, addTaskContainer);
 
-tasksBoardPresenter.init();
+taskBoardPresenter.init();
+
+function handleAddNewTaskButtonClick() {
+    taskBoardPresenter.createTask();
+}
+
+function handleClearBasketButtonClick() {
+    taskBoardPresenter.clearBasket();
+}
