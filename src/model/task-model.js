@@ -59,7 +59,7 @@ export default class TasksModel {
         const [oldStatus, task] = this.getTaskInfoById(taskId);
 
         if (task && task.id !== droppedTask.taskId) {
-            const taskByStatus = this.getTasksByStatus(newStatus) ;
+            const taskByStatus = this.getTasksByStatus(newStatus);
             const order = droppedTask.order;
 
             this.removeTaskFromStatus(task, oldStatus);
