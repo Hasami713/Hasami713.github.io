@@ -54,4 +54,28 @@ export default class TasksModel {
     _notifyObservers() {
         this.#observers.forEach(observer => observer());
     }
+
+    updateTaskStatus(newStatus, taskId, droppedTask) {
+        const [oldStatus, task] = this.getTaskInfoById(taskId);
+
+        if (task && task.id !== droppedTask.taskId) {
+            const taskByStatus = this.getTasksByStatus(newStatus);
+            const order = droppedTask.order;
+
+            this.removeTaskFromStatus(task, oldStatus);
+
+            if (order === OrderPosition.START || order === OrderPosition.END) {
+                const indexSet = order === OrderPosition.START ? 0 : taskByStatus.tasks.length;
+                taskByStatus.tasks.splice(indexSet, 0, task);
+            } else {
+                const indexDroppedTask = taskByStatus.tasks.indexOf(this.getTaskInfoById(droppedTask.taskId)[1]) + (order === OrderPosition.ABOVE ? 0 : 1);
+                taskByStatus.tasks.splice(indexDroppedTask, 0, task);
+            }
+
+
+            this._notifyObservers();
+        }
+    }
+
+
 }
