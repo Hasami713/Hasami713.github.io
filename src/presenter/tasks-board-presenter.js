@@ -2,7 +2,7 @@ import { render } from "../framework/render.js";
 import TaskComponent from "../view/task-component.js";
 import DeskComponent from "../view/board-component.js";
 import TasksListComponent from "../view/task-list-component.js";
-import StubComponent from "../view/plug-component.js";
+import StubComponent from "../view/stub-component.js";
 
 export default class TasksBoardPresenter {
     #taskDeskComponent = new DeskComponent();
@@ -63,7 +63,7 @@ export default class TasksBoardPresenter {
     }
 
     #renderTask(task, container) {
-        render(new TaskComponent(task), container.element.querySelector('.task-container'));
+        render(new TaskComponent(task), container.element.querySelector('ul'));
     }
 
     #renderClearButton() {

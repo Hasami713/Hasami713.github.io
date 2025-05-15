@@ -1,5 +1,6 @@
+import { OrderPosition, Status } from "../const.js";
 import { tasks } from "../mock/task.js";
-
+import { generateID } from "../utils.js";
 
 export default class TasksModel {
     #boardtasks = tasks;
@@ -11,6 +12,18 @@ export default class TasksModel {
 
     getTasksByStatus(status) {
         return this.#boardtasks.filter(f => f.status === status)[0];
+    }
+
+    getTaskInfoById(taskId) {
+        for (const listTask of this.#boardtasks) {
+            const taskById = listTask.tasks.filter(t => t.id === taskId)[0];
+
+            if (taskById) {
+                const currStatus = listTask.status;
+
+                return [ currStatus, taskById ];
+            }
+        }
     }
 
     addTask(title) {
@@ -35,6 +48,16 @@ export default class TasksModel {
         this._notifyObservers();
     }
 
+    removeTaskFromStatus(task, status) {
+        const listTaskOfStatus = this.getTasksByStatus(status);
+
+        const indexTask = listTaskOfStatus.tasks.indexOf(task);
+
+        if (indexTask > -1) {
+            listTaskOfStatus.tasks.splice(indexTask, 1);
+        }
+    }
+
     removeBasketTask() {
         const basketTasks = this.getTasksByStatus(Status.BASKET);
 
@@ -45,14 +68,6 @@ export default class TasksModel {
 
     addObserver(observer) {
         this.#observers.push(observer);
-    }
-
-    removeObserver(observer) {
-        this.#observers.filter(o => o !== observer);
-    }
-
-    _notifyObservers() {
-        this.#observers.forEach(observer => observer());
     }
 
     updateTaskStatus(newStatus, taskId, droppedTask) {
@@ -77,5 +92,11 @@ export default class TasksModel {
         }
     }
 
+    removeObserver(observer) {
+        this.#observers.filter(o => o != observer);
+    }
 
+    _notifyObservers() {
+        this.#observers.forEach(observer => observer());
+    }
 }

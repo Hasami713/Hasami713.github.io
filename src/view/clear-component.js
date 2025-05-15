@@ -1,15 +1,14 @@
-import {AbstractComponent} from "../framework/view/abstract-component.js";
+import AbstractComponent from "../framework/view/abstract-component.js";
 
 function createClearButtonTemplate() {
     return (
         `
-             <button class="clear-button" type='submit'>Очистить</button>
+        <button class="clear-button" type='submit'>Очистить</button>
         `
     )
 }
 
-export default class ClearButtonComponent extends AbstractComponent {
-
+export default class ClearButtonComonent extends AbstractComponent {
     #handleClick = null;
 
     constructor({onClick}) {

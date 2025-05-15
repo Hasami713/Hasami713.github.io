@@ -1,20 +1,69 @@
-import { Status } from "../const.js";
+import {Status} from "../const.js";
+import {generateID} from "../utils.js";
 
 export const tasks = [
     {
         status: Status.BACKLOG,
-        tasks: ["Выпить витамины", "Купить макбук", "Купить билеты в тай"]
+        tasks: [
+            {
+                id: generateID(),
+                name: "Поломать прод"
+            },
+            {
+                id: generateID(),
+                name: "Прописать DROP DATABASE везде"
+            }
+        ]
     },
     {
         status: Status.PROCESSING,
-        tasks: ["Изучить систем дизайн", "Перенести таску в готове", "Записаться в барбишоп"]
+        tasks: [
+            {
+                id: generateID(),
+                name: "Пресс качат"
+            },
+            {
+                id: generateID(),
+                name: "Бегит"
+            },
+            {
+                id: generateID(),
+                name: "Анжумания"
+            }
+        ]
     },
     {
         status: Status.DONE,
-        tasks: ["Заказать кроссовки", "Установить Gitlab Runner на ЧО"]
+        tasks: [
+            {
+                id: generateID(),
+                name: "Учить Джаву"
+            },
+            {
+                id: generateID(),
+                name: "Учить Джаву"
+            },
+            {
+                id: generateID(),
+                name: "Учить Джаву"
+            }
+        ]
     },
     {
         status: Status.BASKET,
-        tasks: ["Сдать комиссию", "Причесать новую либу", "Поспать"]
+        tasks: [
+            {
+                id: generateID(),
+                name: "Начать смотреть 'Во все тяжкие'"
+            },
+            {
+                id: generateID(),
+                name: "Продолжить смотреть 'Во все тяжкие'"
+            },
+            {
+                id: generateID(),
+                name: "Закончить смотреть 'Во все тяжкие'"
+            }
+        ]
     }
-];
+]

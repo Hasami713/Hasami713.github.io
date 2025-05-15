@@ -1,12 +1,10 @@
-import {createElement} from "../framework/render.js";
-import {AbstractComponent} from "../framework/view/abstract-component.js";
+import AbstractComponent from "../framework/view/abstract-component.js";
 
-function createTaskComponentTemplate(task) {
+function createTaskTemplate(id, task) {
     return (
-        `<li>${task}</li>`
+        `<li id=${id}>${task}</li>`
     );
 }
-
 
 export default class TaskComponent extends AbstractComponent {
     constructor(task) {

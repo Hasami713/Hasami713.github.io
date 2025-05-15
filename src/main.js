@@ -1,6 +1,6 @@
 import { render, RenderPosition } from './framework/render.js'
 import HeaderComponent from './view/header-component.js'
-import AddNewTaskComponent from './view/plug-component.js'
+import AddNewTaskComponent from './view/new-task-component.js'
 import TasksBoardPresenter from './presenter/tasks-board-presenter.js'
 import TasksModel from './model/task-model.js'
 import ClearButtonComonent from './view/clear-component.js'

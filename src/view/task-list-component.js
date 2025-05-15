@@ -1,17 +1,15 @@
-import { StatusLabel, Status } from "../const.js";
-import {AbstractComponent} from "../framework/view/abstract-component.js";
+import { OrderPosition, StatusLabel } from "../const.js";
+import AbstractComponent from "../framework/view/abstract-component.js";
 
-
-function createTaskListComponentTemplate(label, status) {
+function createTasksListTemplate(label, status) {
     return (
         `<div class="display-tasks ${status}">
           <h3>${label}</h3>
-          <ul class="task-container">
+          <ul>
           </ul>
         </div>`
     );
 }
-
 
 export default class TasksListComponent extends AbstractComponent {
     constructor(status, onTaskDrop) {
