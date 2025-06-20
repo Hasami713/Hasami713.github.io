@@ -1,1 +1,0 @@
-# Hasami713.github.io
